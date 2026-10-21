@@ -65,9 +65,9 @@ const About = () => {
         </motion.div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { title: "Our Vision", text: "To become a leading computer and ICT training centre in Nigeria, recognized for excellence in digital skills development, innovation, and professional training." },
+            { title: "Our Vision", text: "To become a leading computer and ICT training centre in Africa, recognized for excellence in digital skills development, innovation, and professional training." },
             { title: "Our Mission", text: "To deliver quality, affordable, and practical computer and ICT training that empowers individuals and organizations with digital competencies." },
-            { title: "Core Values", text: "Excellence & Integrity, Innovation & Empowerment, Practical Learning" }
+            { title: "Core Values", text: "Innovation & Empowerment, Excellence & Integrity, Practical Learning" }
           ].map((item, i) => (
             <motion.div
               key={i}

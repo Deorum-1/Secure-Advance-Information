@@ -120,7 +120,7 @@ const Hero = () => {
               transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.5 }}
               className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0"
             >
-              Secure Advance Information Computer Training Centre provides quality, accessible, and practical ICT training designed to bridge the digital gap and prepare you for the modern economy.
+              SAI ICT Training Centre provides quality, accessible, and practical ICT training designed to bridge the digital gap and prepare you for the modern economy.
             </motion.p>
 
             <motion.div
