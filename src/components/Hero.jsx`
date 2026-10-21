@@ -1,0 +1,140 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ChevronRight, CheckCircle } from 'lucide-react';
+
+const Hero = () => {
+  return (
+    <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-gradient-to-br from-gray-50 to-gray-200 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 30, 0],
+            y: [0, 50, 0],
+            opacity: [0.15, 0.25, 0.15]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-24 -right-24 w-96 h-96 bg-saiRed rounded-full blur-3xl opacity-20"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -30, 0],
+            y: [0, -50, 0],
+            opacity: [0.15, 0.25, 0.15]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-400 rounded-full blur-3xl opacity-20"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight"
+            >
+              Empowering Your Future With <span className="text-saiRed relative inline-block">
+                Digital Skills
+                <motion.span
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  className="absolute bottom-2 left-0 h-2 bg-saiRed/20 -z-10"
+                />
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-6 text-lg text-gray-600 leading-relaxed"
+            >
+              Secure Advance Information Computer Training Centre provides quality, accessible, and practical ICT training designed to bridge the digital gap and prepare you for the modern economy.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-10 flex flex-col sm:flex-row gap-4"
+            >
+              <motion.a
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                href="#services"
+                className="flex items-center justify-center px-8 py-4 bg-saiRed text-white rounded-lg font-bold text-lg hover:bg-red-700 transition-all group shadow-lg shadow-saiRed/30"
+              >
+                Explore Our Courses
+                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                href="#contact"
+                className="flex items-center justify-center px-8 py-4 bg-white text-gray-900 border-2 border-gray-300 rounded-lg font-bold text-lg hover:border-saiRed hover:text-saiRed transition-all"
+              >
+                Contact Us
+              </motion.a>
+            </motion.div>
+
+            <div className="mt-8 grid grid-cols-2 gap-4 text-sm text-gray-500">
+              {["Hands-on Training", "Expert Mentors", "Professional Certification", "Affordable Rates"].map((text, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8 + (i * 0.1), duration: 0.5 }}
+                  className="flex items-center"
+                >
+                  <CheckCircle size={16} className="text-green-500 mr-2" /> {text}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative hidden lg:block"
+          >
+            {/* Floating Background Orbs */}
+            <div className="absolute -top-20 -right-20 w-96 h-96 bg-saiRed rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+            <motion.div
+              animate={{
+                y: [0, -20, 0],
+                rotate: [0, 1, 0]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="relative z-10"
+            >
+              <img
+                src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="ICT Training"
+                className="rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500 border-8 border-white"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
