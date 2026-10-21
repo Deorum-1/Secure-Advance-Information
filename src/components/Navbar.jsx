@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -15,6 +15,31 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
   const prefersReducedMotion = useReducedMotion();
+  const menuButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
+    const closeOnDesktop = (event) => {
+      if (event.matches) setIsOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    desktopMediaQuery.addEventListener('change', closeOnDesktop);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      desktopMediaQuery.removeEventListener('change', closeOnDesktop);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const sections = navItems
@@ -48,7 +73,7 @@ const Navbar = () => {
       initial={prefersReducedMotion ? false : { opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: 'easeOut' }}
-      className="bg-white shadow-md fixed w-full z-50"
+      className="fixed inset-x-0 top-0 z-50 bg-white shadow-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
@@ -95,8 +120,9 @@ const Navbar = () => {
           </div>
           <div className="flex items-center lg:hidden">
             <button
+              ref={menuButtonRef}
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsOpen((open) => !open)}
               className="text-gray-700 rounded-md p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-saiRed"
               aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isOpen}
@@ -109,44 +135,47 @@ const Navbar = () => {
       </div>
       <AnimatePresence initial={false}>
         {isOpen && (
-        <motion.div
-          id="mobile-navigation"
-          initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.25, ease: 'easeInOut' }}
-          className="lg:hidden overflow-hidden bg-white border-t"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map(([href, label], index) => {
-              const isActive = activeSection === href;
-              const isCta = href === '#contact';
+          <motion.div
+            id="mobile-navigation"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+            className="max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain border-t bg-white lg:hidden"
+          >
+            <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+              {navItems.map(([href, label], index) => {
+                const isActive = activeSection === href;
+                const isCta = href === '#contact';
 
-              return (
-              <motion.a
-                key={href}
-                onClick={() => setIsOpen(false)}
-                href={href}
-                aria-current={isActive ? 'location' : undefined}
-                initial={prefersReducedMotion ? false : { opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.2, delay: prefersReducedMotion ? 0 : index * 0.04 }}
-                className={`block rounded-md px-3 py-2 transition-colors ${
-                  isCta
-                    ? `font-bold text-white ${
-                        isActive ? 'bg-red-700' : 'bg-saiRed'
-                      }`
-                    : isActive
-                      ? 'bg-red-50 font-semibold text-saiRed'
-                      : 'text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                {label}
-              </motion.a>
-              );
-            })}
-          </div>
-        </motion.div>
+                return (
+                  <motion.a
+                    key={href}
+                    onClick={() => setIsOpen(false)}
+                    href={href}
+                    aria-current={isActive ? 'location' : undefined}
+                    initial={prefersReducedMotion ? false : { opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: prefersReducedMotion ? 0 : 0.2,
+                      delay: prefersReducedMotion ? 0 : index * 0.04,
+                    }}
+                    className={`block rounded-md px-3 py-3 transition-colors ${
+                      isCta
+                        ? `font-bold text-white ${
+                            isActive ? 'bg-red-700' : 'bg-saiRed'
+                          }`
+                        : isActive
+                          ? 'bg-red-50 font-semibold text-saiRed'
+                          : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {label}
+                  </motion.a>
+                );
+              })}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
