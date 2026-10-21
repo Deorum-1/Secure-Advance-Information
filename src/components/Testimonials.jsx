@@ -1,23 +1,35 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { MessageSquareQuote } from 'lucide-react';
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { MessageSquareQuote } from "lucide-react";
 
 const testimonialPrompts = [
   {
-    title: 'Your learning journey',
-    prompt: 'Share what your course experience was like.',
+    title: "Your learning journey",
+    prompt: "Share what your course experience was like.",
+    feedback:
+      "My Learning Journey is more about developing my skills and using it to build a successful career",
+    name: "Akinwole Abraham",
   },
   {
-    title: 'Skills you gained',
-    prompt: 'Tell us what new skills or projects you are proud of.',
+    title: "Skills you gained",
+    prompt: "Tell us what new skills or projects you are proud of.",
+    feedback:
+      "I enjoyed learning new skills,practicing them, and building projects that I am proud of.",
+    name: "Ebaju Deborah Chioma",
   },
   {
-    title: 'Advice for future learners',
-    prompt: 'What would you tell someone considering a course?',
+    title: "Advice for future learners",
+    prompt: "What would you tell someone considering a course?",
+    feedback:
+      "I would tell them to take the course and invest in their learning journey. It is worth it.",
+    name: "Adeyemi Ayomide",
   },
   {
-    title: 'Your favourite moment',
-    prompt: 'Let us know what you enjoyed most about learning with us.',
+    title: "Your favourite moment",
+    prompt: "Let us know what you enjoyed most about learning with us.",
+    feedback:
+      "My favourite moment was when I completed my first project in graphics design and received positive feedback from my mentor.",
+    name: "Ilori Deborah",
   },
 ];
 
@@ -29,20 +41,37 @@ const TestimonialCard = ({ item }) => (
       </div>
       <div>
         <p className="font-semibold text-slate-900">Student testimonial</p>
-        <p className="text-xs text-slate-500">Placeholder — feedback coming soon</p>
       </div>
     </div>
-    <p className="text-xs font-bold uppercase tracking-wider text-saiRed">{item.title}</p>
-    <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{item.prompt}</p>
+    <p className="text-xs font-bold uppercase tracking-wider text-saiRed">
+      {item.title}
+    </p>
+    <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
+      {item.prompt}
+    </p>
     <p className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500">
-      Genuine student feedback will appear here once provided.
+      {item.feedback}
+    </p>
+    <p className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500">
+      {item.name}
     </p>
   </article>
 );
 
-const TestimonialMarqueeRow = ({ items, reverse = false, label, prefersReducedMotion }) => (
-  <div className="testimonial-marquee group relative overflow-hidden py-3" role="group" aria-label={label}>
-    <div className={`testimonial-marquee-track${reverse ? ' testimonial-marquee-reverse' : ''}`}>
+const TestimonialMarqueeRow = ({
+  items,
+  reverse = false,
+  label,
+  prefersReducedMotion,
+}) => (
+  <div
+    className="testimonial-marquee group relative overflow-hidden py-3"
+    role="group"
+    aria-label={label}
+  >
+    <div
+      className={`testimonial-marquee-track${reverse ? " testimonial-marquee-reverse" : ""}`}
+    >
       {[0, 1].map((copy) => (
         <div
           key={copy}
@@ -57,8 +86,14 @@ const TestimonialMarqueeRow = ({ items, reverse = false, label, prefersReducedMo
     </div>
     {!prefersReducedMotion && (
       <>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent sm:w-20" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent sm:w-20" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent sm:w-20"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent sm:w-20"
+        />
       </>
     )}
   </div>
@@ -85,11 +120,15 @@ const Testimonials = () => {
           </h2>
           <div className="mx-auto mt-4 h-1.5 w-20 rounded-full bg-saiRed" />
           <p className="mt-6 text-lg leading-relaxed text-slate-600">
-            We look forward to sharing feedback from our students here.
+            {testimonialPrompts[0].feedback}
           </p>
         </motion.div>
 
-        <div role="region" aria-roledescription="testimonial carousel" aria-label="Student testimonial placeholders">
+        <div
+          role="region"
+          aria-roledescription="testimonial carousel"
+          aria-label="Student testimonial placeholders"
+        >
           <div className="mx-auto flex max-w-xl flex-col gap-4 px-4 lg:hidden">
             {testimonialPrompts.map((item, index) => (
               <motion.div
