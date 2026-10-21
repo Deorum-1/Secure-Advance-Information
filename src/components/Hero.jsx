@@ -132,7 +132,7 @@ const Hero = () => {
               <motion.a
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.05, y: -5, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)" }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
-                href="#services"
+                href="#featured-courses"
                 className="flex items-center justify-center px-8 py-4 bg-saiRed text-white rounded-full font-bold text-lg hover:bg-red-700 transition-all group shadow-lg shadow-saiRed/30"
               >
                 Explore Our Courses

@@ -21,86 +21,123 @@ const ServiceCard = ({ title, description, items, prefersReducedMotion }) => {
   };
 
   return (
-    <div id={getServiceId(title)} className="h-[350px] [perspective:1200px]">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={`${isFlipped ? "Hide" : "Show"} details for ${title}`}
-        aria-pressed={isPinned}
-        onClick={() => setIsPinned((flipped) => !flipped)}
-        onKeyDown={handleKeyDown}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onFocus={() => setIsHovered(true)}
-        onBlur={() => setIsHovered(false)}
-        className="h-full cursor-pointer rounded-2xl text-left outline-none focus-visible:ring-4 focus-visible:ring-saiRed/40"
-      >
-        <motion.div
-          animate={{ rotateY: isFlipped ? 180 : 0 }}
-          transition={{
-            duration: prefersReducedMotion ? 0 : 0.85,
-            ease: "easeInOut",
-          }}
-          className="relative h-full w-full rounded-2xl"
-          style={{ transformStyle: "preserve-3d" }}
+    <div
+      id={getServiceId(title)}
+      className="h-full lg:h-[350px] lg:[perspective:1200px]"
+    >
+      <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:hidden">
+        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-saiRed/10 text-saiRed">
+          <ChevronRight size={22} aria-hidden="true" />
+        </div>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-saiRed">
+          Course offered
+        </p>
+        <h3 className="text-xl font-bold leading-snug text-slate-900">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">
+          {description}
+        </p>
+        <p className="mb-3 mt-5 text-xs font-bold uppercase tracking-wider text-slate-500">
+          Courses offered
+        </p>
+        <ul className="space-y-2">
+          {items.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-2 text-sm leading-snug text-slate-700"
+            >
+              <ChevronRight
+                size={15}
+                className="mt-0.5 flex-shrink-0 text-saiRed"
+                aria-hidden="true"
+              />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+      <div className="hidden h-full lg:block">
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label={`${isFlipped ? "Hide" : "Show"} details for ${title}`}
+          aria-pressed={isPinned}
+          onClick={() => setIsPinned((flipped) => !flipped)}
+          onKeyDown={handleKeyDown}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onFocus={() => setIsHovered(true)}
+          onBlur={() => setIsHovered(false)}
+          className="h-full cursor-pointer rounded-2xl text-left outline-none focus-visible:ring-4 focus-visible:ring-saiRed/40"
         >
-          <div
-            aria-hidden={isFlipped}
-            className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg"
-            style={{ backfaceVisibility: "hidden" }}
-          >
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-saiRed/10 text-saiRed">
-              <ChevronRight size={22} aria-hidden="true" />
-            </div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-saiRed">
-              Course offered
-            </p>
-            <h3 className="text-xl font-bold leading-snug text-slate-900">
-              {title}
-            </h3>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
-              {description}
-            </p>
-          </div>
-
-          <div
-            aria-hidden={!isFlipped}
-            className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-6 text-white shadow-lg"
-            style={{
-              backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
+          <motion.div
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.85,
+              ease: "easeInOut",
             }}
+            className="relative h-full w-full rounded-2xl"
+            style={{ transformStyle: "preserve-3d" }}
           >
-            <div className="mb-4 flex items-center gap-2 text-cyan-200">
-              <ArrowLeft size={17} aria-hidden="true" />
-              <span className="text-xs font-bold uppercase tracking-wider">
-                Course details
-              </span>
+            <div
+              aria-hidden={isFlipped}
+              className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg"
+              style={{ backfaceVisibility: "hidden" }}
+            >
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-saiRed/10 text-saiRed">
+                <ChevronRight size={22} aria-hidden="true" />
+              </div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-wider text-saiRed">
+                Course offered
+              </p>
+              <h3 className="text-xl font-bold leading-snug text-slate-900">
+                {title}
+              </h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
+                {description}
+              </p>
             </div>
-            <h3 className="text-lg font-bold leading-snug">{title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              {description}
-            </p>
-            <p className="mb-3 mt-5 text-xs font-bold uppercase tracking-wider text-cyan-200">
-              Courses offered
-            </p>
-            <ul className="space-y-2">
-              {items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2 text-sm leading-snug text-slate-200"
-                >
-                  <ChevronRight
-                    size={15}
-                    className="mt-0.5 flex-shrink-0 text-cyan-300"
-                    aria-hidden="true"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
+
+            <div
+              aria-hidden={!isFlipped}
+              className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-6 text-white shadow-lg"
+              style={{
+                backfaceVisibility: "hidden",
+                transform: "rotateY(180deg)",
+              }}
+            >
+              <div className="mb-4 flex items-center gap-2 text-cyan-200">
+                <ArrowLeft size={17} aria-hidden="true" />
+                <span className="text-xs font-bold uppercase tracking-wider">
+                  Course details
+                </span>
+              </div>
+              <h3 className="text-lg font-bold leading-snug">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                {description}
+              </p>
+              <p className="mb-3 mt-5 text-xs font-bold uppercase tracking-wider text-cyan-200">
+                Courses offered
+              </p>
+              <ul className="space-y-2">
+                {items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-sm leading-snug text-slate-200"
+                  >
+                    <ChevronRight
+                      size={15}
+                      className="mt-0.5 flex-shrink-0 text-cyan-300"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

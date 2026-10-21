@@ -57,6 +57,10 @@ html {
   animation-direction: reverse;
 }
 
+.testimonial-marquee-track[data-paused="true"] {
+  animation-play-state: paused;
+}
+
 .testimonial-marquee-group {
   padding-right: 1.5rem;
 }
