@@ -74,6 +74,41 @@ const Contact = () => {
                 </motion.div>
               ))}
             </div>
+            <div className="mt-10 border-t border-white/10 pt-7">
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-300">
+                Follow us
+              </h3>
+              <nav aria-label="Social media" className="flex flex-wrap gap-3">
+                {[
+                  {
+                    label: "TikTok",
+                    href: "https://www.tiktok.com/@secureadvanceinformation?_r=1&_t=ZS-9AjcpgoKpgE",
+                  },
+                  {
+                    label: "Instagram",
+                    href: "https://www.instagram.com/sai_tech.ng/?__pwa=1",
+                  },
+                  {
+                    label: "X",
+                    href: "https://x.com/sec_tech26",
+                  },
+                  {
+                    label: "LinkedIn",
+                    href: "https://www.linkedin.com/feed/update/urn:li:activity:7518579255535116288",
+                  },
+                ].map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-gray-200 transition-colors hover:border-saiRed hover:bg-saiRed hover:text-white"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </nav>
+            </div>
           </div>
           <div className="bg-gray-100 p-8 md:p-16">
             <motion.form
