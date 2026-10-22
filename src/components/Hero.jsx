@@ -158,8 +158,8 @@ const Hero = () => {
               className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0"
             >
               SAI ICT Training Centre provides quality, accessible, and
-              practical ICT training designed to bridge the digital gap and
-              prepare you for the modern economy.
+              practical training designed to bridge the digital gap and prepare
+              you for the modern economy.
             </motion.p>
 
             <motion.div
