@@ -87,7 +87,7 @@ const Navbar = () => {
             <span className="hidden min-w-0 text-sm font-bold leading-tight text-slate-900 md:block md:text-base">
               Secure Advance Information
               <span className="mt-1 block text-xs font-medium text-gray-500 sm:text-sm">
-                Computer Training Centre
+                Building Digital Skill for a Better Future
               </span>
             </span>
           </a>
