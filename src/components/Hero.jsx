@@ -86,16 +86,6 @@ const Hero = () => {
             transition={{ duration: prefersReducedMotion ? 0 : 0.8 }}
             className="text-center lg:text-left"
           >
-            <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.2 }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-cyan-300/10 text-cyan-200 text-sm font-bold mb-6 border border-cyan-200/20"
-            >
-              <Zap size={16} className="mr-2 text-cyan-300" />
-              Begin Your Journey To a Digital Future
-            </motion.div>
-
             <motion.h1
               initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
