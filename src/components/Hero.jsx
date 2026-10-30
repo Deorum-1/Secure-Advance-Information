@@ -6,7 +6,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { ChevronRight, CheckCircle, Zap } from "lucide-react";
+import { ChevronRight, CheckCircle } from "lucide-react";
 
 const Hero = () => {
   // Mouse tracking for 3D tilt effect
