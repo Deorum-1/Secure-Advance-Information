@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const navItems = [
   ['#home', 'Home'],
@@ -9,6 +9,7 @@ const navItems = [
   ['#services', 'Services'],
   ['#testimonials', 'Testimonials'],
   ['#contact', 'Get Started'],
+  ['https://tutorial-centre-manager.byteforge11-516.workers.dev/', 'Join LMS', true],
 ];
 
 const Navbar = () => {
@@ -43,7 +44,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const sections = navItems
-      .map(([href]) => document.querySelector(href))
+      .map(([href]) => (href.startsWith('#') ? document.querySelector(href) : null))
       .filter(Boolean);
 
     const updateActiveSection = () => {
@@ -92,7 +93,7 @@ const Navbar = () => {
             </span>
           </a>
           <div className="hidden items-center space-x-8 lg:flex">
-            {navItems.map(([href, label]) => {
+            {navItems.map(([href, label, isExternal]) => {
               const isActive = activeSection === href;
               const isCta = href === '#contact';
 
@@ -100,6 +101,8 @@ const Navbar = () => {
                 <a
                   key={href}
                   href={href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noreferrer' : undefined}
                   aria-current={isActive ? 'location' : undefined}
                   className={
                     isCta
@@ -114,6 +117,7 @@ const Navbar = () => {
                   }
                 >
                   {label}
+                  {isExternal && <ArrowUpRight size={16} aria-hidden="true" className="ml-1 inline-block" />}
                 </a>
               );
             })}
@@ -144,7 +148,7 @@ const Navbar = () => {
             className="max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain border-t bg-white lg:hidden"
           >
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navItems.map(([href, label], index) => {
+              {navItems.map(([href, label, isExternal], index) => {
                 const isActive = activeSection === href;
                 const isCta = href === '#contact';
 
@@ -153,6 +157,8 @@ const Navbar = () => {
                     key={href}
                     onClick={() => setIsOpen(false)}
                     href={href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noreferrer' : undefined}
                     aria-current={isActive ? 'location' : undefined}
                     initial={prefersReducedMotion ? false : { opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -171,6 +177,7 @@ const Navbar = () => {
                     }`}
                   >
                     {label}
+                    {isExternal && <ArrowUpRight size={16} aria-hidden="true" className="ml-1 inline-block" />}
                   </motion.a>
                 );
               })}
