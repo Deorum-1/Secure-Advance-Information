@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { MessageSquareQuote, Pause, Play } from "lucide-react";
+import { MessageSquareQuote } from "lucide-react";
 
 const testimonialPrompts = [
   {
@@ -53,7 +53,6 @@ const TestimonialMarqueeRow = ({
   reverse = false,
   label,
   prefersReducedMotion,
-  isPaused,
 }) => (
   <div
     className="testimonial-marquee group relative overflow-hidden py-3"
@@ -61,7 +60,6 @@ const TestimonialMarqueeRow = ({
     aria-label={label}
   >
     <div
-      data-paused={isPaused}
       className={`testimonial-marquee-track${reverse ? " testimonial-marquee-reverse" : ""}`}
     >
       {[0, 1].map((copy) => (
@@ -93,7 +91,6 @@ const TestimonialMarqueeRow = ({
 
 const Testimonials = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [isPaused, setIsPaused] = React.useState(false);
 
   return (
     <section
@@ -145,35 +142,16 @@ const Testimonials = () => {
             ))}
           </div>
           <div className="hidden lg:block">
-            {!prefersReducedMotion && (
-              <div className="mb-3 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsPaused((paused) => !paused)}
-                  aria-pressed={isPaused}
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-saiRed hover:text-saiRed"
-                >
-                  {isPaused ? (
-                    <Play size={16} aria-hidden="true" />
-                  ) : (
-                    <Pause size={16} aria-hidden="true" />
-                  )}
-                  {isPaused ? "Resume stories" : "Pause stories"}
-                </button>
-              </div>
-            )}
             <TestimonialMarqueeRow
               items={testimonialPrompts}
               label="Student testimonials, scrolling left"
               prefersReducedMotion={prefersReducedMotion}
-              isPaused={isPaused}
             />
             <TestimonialMarqueeRow
               items={[...testimonialPrompts].reverse()}
               reverse
               label="More student testimonials, scrolling right"
               prefersReducedMotion={prefersReducedMotion}
-              isPaused={isPaused}
             />
           </div>
         </div>
