@@ -217,8 +217,8 @@ const Hero = () => {
               >
                 <div className="relative h-full w-full">
                   <img
-                    src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Training"
+                    src={`${process.env.PUBLIC_URL}/hero-students.jpg`}
+                    alt="Students learning together at computers"
                     className="w-full h-full object-cover rounded-3xl shadow-2xl border-8 border-white"
                   />
                   {/* Floating Badge */}
@@ -254,8 +254,8 @@ const Hero = () => {
                 style={{ translateZ: "100px" }}
               >
                 <img
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400"
-                  alt="Collaboration"
+                  src={`${process.env.PUBLIC_URL}/hero-classroom-portrait.jpg`}
+                  alt="Students and instructor in the training classroom"
                   className="w-full h-full object-cover rounded-3xl shadow-2xl border-8 border-white"
                 />
               </motion.div>
@@ -273,8 +273,8 @@ const Hero = () => {
                 style={{ translateZ: "-50px" }}
               >
                 <img
-                  src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=300"
-                  alt="Expert"
+                  src={`${process.env.PUBLIC_URL}/hero-instructor.jpg`}
+                  alt="Instructor teaching a practical computer lesson"
                   className="w-full h-full object-cover rounded-3xl shadow-xl border-8 border-white"
                 />
               </motion.div>

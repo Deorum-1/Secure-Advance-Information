@@ -34,7 +34,7 @@ const About = () => {
           transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="mb-16"
         >
-          <div className="relative mx-auto aspect-video w-full overflow-hidden rounded-3xl bg-slate-950 shadow-2xl">
+          <div className="relative mx-auto aspect-video w-full max-w-[478px] overflow-hidden rounded-3xl bg-slate-950 shadow-2xl">
             <video
               className="absolute inset-0 h-full w-full object-cover"
               autoPlay={!prefersReducedMotion}
