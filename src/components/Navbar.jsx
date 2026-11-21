@@ -9,7 +9,7 @@ const navItems = [
   ['#services', 'Services'],
   ['#testimonials', 'Testimonials'],
   ['#contact', 'Get Started'],
-  ['https://tutorial-centre-manager.byteforge11-516.workers.dev/', 'Join LMS', true],
+  ['https://lms.sai.com.ng/', 'Join LMS', true],
 ];
 
 const Navbar = () => {
