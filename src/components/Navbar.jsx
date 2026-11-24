@@ -1,20 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 
 const navItems = [
-  ['#home', 'Home'],
-  ['#about', 'About Us'],
-  ['#featured-courses', 'Courses'],
-  ['#services', 'Services'],
-  ['#testimonials', 'Testimonials'],
-  ['#contact', 'Get Started'],
-  ['https://lms.sai.com.ng/', 'Join LMS', true],
+  ["#home", "Home"],
+  ["#about", "About Us"],
+  ["#featured-courses", "Courses"],
+  ["#services", "Services"],
+  ["#testimonials", "Testimonials"],
+  ["#contact", "Get Started"],
+  [
+    "https://tutorial-centre-manager.byteforge11-516.workers.dev/",
+    "Join LMS",
+    true,
+  ],
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('#home');
+  const [activeSection, setActiveSection] = useState("#home");
   const prefersReducedMotion = useReducedMotion();
   const menuButtonRef = useRef(null);
 
@@ -22,29 +26,31 @@ const Navbar = () => {
     if (!isOpen) return undefined;
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsOpen(false);
         menuButtonRef.current?.focus();
       }
     };
 
-    const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
+    const desktopMediaQuery = window.matchMedia("(min-width: 1024px)");
     const closeOnDesktop = (event) => {
       if (event.matches) setIsOpen(false);
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    desktopMediaQuery.addEventListener('change', closeOnDesktop);
+    document.addEventListener("keydown", handleKeyDown);
+    desktopMediaQuery.addEventListener("change", closeOnDesktop);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      desktopMediaQuery.removeEventListener('change', closeOnDesktop);
+      document.removeEventListener("keydown", handleKeyDown);
+      desktopMediaQuery.removeEventListener("change", closeOnDesktop);
     };
   }, [isOpen]);
 
   useEffect(() => {
     const sections = navItems
-      .map(([href]) => (href.startsWith('#') ? document.querySelector(href) : null))
+      .map(([href]) =>
+        href.startsWith("#") ? document.querySelector(href) : null,
+      )
       .filter(Boolean);
 
     const updateActiveSection = () => {
@@ -60,7 +66,7 @@ const Navbar = () => {
     };
 
     const observer = new IntersectionObserver(updateActiveSection, {
-      rootMargin: '-30% 0px -65% 0px',
+      rootMargin: "-30% 0px -65% 0px",
     });
 
     sections.forEach((section) => observer.observe(section));
@@ -73,17 +79,26 @@ const Navbar = () => {
     <motion.nav
       initial={prefersReducedMotion ? false : { opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: 'easeOut' }}
+      transition={{
+        duration: prefersReducedMotion ? 0 : 0.45,
+        ease: "easeOut",
+      }}
       className="fixed inset-x-0 top-0 z-50 bg-white shadow-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
-          <a href="#home" className="flex min-w-0 flex-shrink items-center gap-3">
+          <a
+            href="#home"
+            className="flex min-w-0 flex-shrink items-center gap-3"
+          >
             <img
               className="h-12 w-auto flex-shrink-0"
               src="/logo.png"
               alt=""
-              onError={(e) => { e.target.src = 'https://via.placeholder.com/150x50?text=SAI+Logo' }}
+              onError={(e) => {
+                e.target.src =
+                  "https://via.placeholder.com/150x50?text=SAI+Logo";
+              }}
             />
             <span className="hidden min-w-0 text-sm font-bold leading-tight text-slate-900 md:block md:text-base">
               Secure Advance Information
@@ -95,29 +110,35 @@ const Navbar = () => {
           <div className="hidden items-center space-x-8 lg:flex">
             {navItems.map(([href, label, isExternal]) => {
               const isActive = activeSection === href;
-              const isCta = href === '#contact';
+              const isCta = href === "#contact";
 
               return (
                 <a
                   key={href}
                   href={href}
-                  target={isExternal ? '_blank' : undefined}
-                  rel={isExternal ? 'noreferrer' : undefined}
-                  aria-current={isActive ? 'location' : undefined}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  aria-current={isActive ? "location" : undefined}
                   className={
                     isCta
                       ? `rounded-full bg-saiRed px-6 py-2 font-bold text-white transition-all hover:bg-red-700 ${
-                          isActive ? 'ring-2 ring-saiRed ring-offset-2' : ''
+                          isActive ? "ring-2 ring-saiRed ring-offset-2" : ""
                         }`
                       : `relative py-2 font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-saiRed after:transition-transform hover:text-saiRed ${
                           isActive
-                            ? 'text-saiRed after:scale-x-100'
-                            : 'text-gray-700'
+                            ? "text-saiRed after:scale-x-100"
+                            : "text-gray-700"
                         }`
                   }
                 >
                   {label}
-                  {isExternal && <ArrowUpRight size={16} aria-hidden="true" className="ml-1 inline-block" />}
+                  {isExternal && (
+                    <ArrowUpRight
+                      size={16}
+                      aria-hidden="true"
+                      className="ml-1 inline-block"
+                    />
+                  )}
                 </a>
               );
             })}
@@ -128,7 +149,9 @@ const Navbar = () => {
               type="button"
               onClick={() => setIsOpen((open) => !open)}
               className="text-gray-700 rounded-md p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-saiRed"
-              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+              }
               aria-expanded={isOpen}
               aria-controls="mobile-navigation"
             >
@@ -150,17 +173,19 @@ const Navbar = () => {
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {navItems.map(([href, label, isExternal], index) => {
                 const isActive = activeSection === href;
-                const isCta = href === '#contact';
+                const isCta = href === "#contact";
 
                 return (
                   <motion.a
                     key={href}
                     onClick={() => setIsOpen(false)}
                     href={href}
-                    target={isExternal ? '_blank' : undefined}
-                    rel={isExternal ? 'noreferrer' : undefined}
-                    aria-current={isActive ? 'location' : undefined}
-                    initial={prefersReducedMotion ? false : { opacity: 0, x: -8 }}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer" : undefined}
+                    aria-current={isActive ? "location" : undefined}
+                    initial={
+                      prefersReducedMotion ? false : { opacity: 0, x: -8 }
+                    }
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
                       duration: prefersReducedMotion ? 0 : 0.2,
@@ -169,15 +194,21 @@ const Navbar = () => {
                     className={`block rounded-md px-3 py-3 transition-colors ${
                       isCta
                         ? `font-bold text-white ${
-                            isActive ? 'bg-red-700' : 'bg-saiRed'
+                            isActive ? "bg-red-700" : "bg-saiRed"
                           }`
                         : isActive
-                          ? 'bg-red-50 font-semibold text-saiRed'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? "bg-red-50 font-semibold text-saiRed"
+                          : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     {label}
-                    {isExternal && <ArrowUpRight size={16} aria-hidden="true" className="ml-1 inline-block" />}
+                    {isExternal && (
+                      <ArrowUpRight
+                        size={16}
+                        aria-hidden="true"
+                        className="ml-1 inline-block"
+                      />
+                    )}
                   </motion.a>
                 );
               })}
