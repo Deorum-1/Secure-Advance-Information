@@ -5,6 +5,11 @@
       "source": "/(webmail|mail)/:path*",
       "destination": "https://da36.host-ww.net/roundcube/",
       "permanent": false
+    },
+    {
+      "source": "/roundcube/:path*",
+      "destination": "https://da36.host-ww.net/roundcube/:path*",
+      "permanent": false
     }
   ]
 }
