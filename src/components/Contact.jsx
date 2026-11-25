@@ -1,26 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const Contact = () => {
   const prefersReducedMotion = useReducedMotion();
+  const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitState({ status: 'submitting', message: '' });
 
     const formData = new FormData(event.currentTarget);
-    const message = [
-      'Course enquiry',
-      `Name: ${formData.get('name')}`,
-      `Email: ${formData.get('email')}`,
-      `Course: ${formData.get('course')}`,
-      `Message: ${formData.get('message')}`,
-    ].join('\n');
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      course: formData.get('course'),
+      message: formData.get('message'),
+    };
 
-    const subject = 'Course enquiry';
-    const mailto = `mailto:info@sai.com.ng?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const contentType = response.headers.get('content-type') || '';
+      let data = {};
 
-    window.location.assign(mailto);
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        await response.text();
+        throw new Error(
+          response.status === 404
+            ? 'The email API is not available on this deployment.'
+            : 'The email server returned an unexpected response.'
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Your message could not be sent.');
+      }
+
+      event.currentTarget.reset();
+      setSubmitState({
+        status: 'success',
+        message: 'Thank you. Your enquiry has been sent.',
+      });
+    } catch (error) {
+      setSubmitState({
+        status: 'error',
+        message: error.message || 'Your message could not be sent. Please try again.',
+      });
+    }
   };
 
   return (
@@ -45,7 +77,7 @@ const Contact = () => {
                 {
                   icon: MapPin,
                   label: "Visit Us",
-                  val: "84, Orimerunmi Road, Olowotedo, Mowe, Ogun State",
+                  val: "84, Orimerunmu Road, Olowotedo, Mowe, Ogun State",
                   href: "https://maps.google.com/?q=84+Orimerunmi+Road+Olowotedo+Mowe+Ogun+State",
                 }
               ].map((item, i) => (
@@ -151,15 +183,21 @@ const Contact = () => {
               </div>
               <motion.button
                 type="submit"
+                disabled={submitState.status === 'submitting'}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-                className="w-full py-4 bg-saiRed text-white rounded-lg font-bold text-lg hover:bg-red-700 transition-all shadow-lg hover:shadow-red-200"
+                className="w-full py-4 bg-saiRed text-white rounded-lg font-bold text-lg hover:bg-red-700 transition-all shadow-lg hover:shadow-red-200 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Continue to Email
+                {submitState.status === 'submitting' ? 'Sending...' : 'Send Enquiry'}
               </motion.button>
-              <p className="text-sm text-gray-600">
-                Your enquiry will open in your email app. Review it there and press Send to contact us.
-              </p>
+              {submitState.message && (
+                <p
+                  role="status"
+                  className={`text-sm ${submitState.status === 'success' ? 'text-green-700' : 'text-red-700'}`}
+                >
+                  {submitState.message}
+                </p>
+              )}
             </motion.form>
           </div>
         </motion.div>
