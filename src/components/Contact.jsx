@@ -10,7 +10,8 @@ const Contact = () => {
     event.preventDefault();
     setSubmitState({ status: 'submitting', message: '' });
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -42,7 +43,7 @@ const Contact = () => {
         throw new Error(data.error || 'Your message could not be sent.');
       }
 
-      event.currentTarget.reset();
+      form.reset();
       setSubmitState({
         status: 'success',
         message: 'Thank you. Your enquiry has been sent.',
