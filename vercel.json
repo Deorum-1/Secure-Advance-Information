@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/(webmail|mail)/:path*",
+      "destination": "https://da36.host-ww.net/roundcube/",
+      "permanent": false
+    }
+  ]
+}
